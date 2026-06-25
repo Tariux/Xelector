@@ -19,9 +19,14 @@
       <section class="panel profiles-panel">
         <div class="panel-header">
           <h2>Profiles</h2>
-          <button id="newProfile" class="secondary">New</button>
+          <div class="header-actions">
+            <button id="importProfiles" class="secondary" type="button">Import</button>
+            <button id="exportProfiles" class="secondary" type="button">Export</button>
+            <button id="newProfile" class="secondary">New</button>
+          </div>
         </div>
         <div id="profileList" class="profile-list"></div>
+        <input type="file" id="importFile" accept="application/json" hidden>
       </section>
 
       <section class="panel editor-panel">

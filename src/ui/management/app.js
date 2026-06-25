@@ -189,11 +189,84 @@ function addSelector() {
   $('selectorList').appendChild(selectorRow({ attribute: 'text', multiple: false, name: '', selector: '' }));
 }
 
+async function exportProfiles() {
+  const data = JSON.stringify(profiles, null, 2);
+  const blob = new Blob([data], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'xelector-profiles-' + new Date().toISOString().slice(0, 10) + '.json';
+  link.click();
+  URL.revokeObjectURL(url);
+
+  try {
+    await navigator.clipboard.writeText(data);
+    setStatus('Profiles exported as file and copied to clipboard.');
+  } catch (e) {
+    setStatus('Profiles exported as file.');
+  }
+}
+
+async function importProfiles() {
+  const input = $('importFile');
+  const file = input.files && input.files[0];
+  if (!file) {
+    return;
+  }
+
+  try {
+    const text = await file.text();
+    const imported = JSON.parse(text);
+    if (!Array.isArray(imported)) {
+      throw new Error('Invalid format: expected an array of profiles.');
+    }
+
+    const existingIds = new Set(profiles.map(function (p) { return p.id; }));
+    const now = Date.now();
+    let added = 0;
+    let updated = 0;
+
+    imported.forEach(function (profile) {
+      if (!Array.isArray(profile.selectors)) {
+        return;
+      }
+
+      if (profile.id && existingIds.has(profile.id)) {
+        const index = profiles.findIndex(function (p) { return p.id === profile.id; });
+        if (index >= 0) {
+          profiles[index] = Object.assign({}, profiles[index], profile, { updatedAt: now });
+        }
+        updated++;
+      } else {
+        profile.id = 'profile-' + now.toString(36) + '-' + Math.random().toString(36).slice(2, 8);
+        profile.createdAt = profile.createdAt || now;
+        profiles.push(profile);
+        added++;
+      }
+
+      existingIds.add(profile.id);
+    });
+
+    await saveProfiles();
+    setStatus('Import complete: ' + added + ' added, ' + updated + ' updated.');
+    render();
+  } catch (error) {
+    setStatus('Import failed: ' + error.message, true);
+  }
+
+  input.value = '';
+}
+
 window.addEventListener('DOMContentLoaded', function () {
   $('newProfile').addEventListener('click', newProfile);
   $('deleteProfile').addEventListener('click', deleteProfile);
   $('saveProfile').addEventListener('click', saveCurrentProfile);
   $('addSelector').addEventListener('click', addSelector);
+  $('exportProfiles').addEventListener('click', exportProfiles);
+  $('importProfiles').addEventListener('click', function () {
+    $('importFile').click();
+  });
+  $('importFile').addEventListener('change', importProfiles);
 
   loadProfiles().then(render).catch(function (error) {
     setStatus(error.message, true);

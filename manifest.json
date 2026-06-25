@@ -1,13 +1,19 @@
 {
   "manifest_version": 3,
   "name": "Xelector",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Extract configured CSS selector content from matching pages and copy formatted output to the clipboard.",
-  "permissions": ["activeTab", "clipboardWrite", "offscreen", "scripting", "storage"],
+  "permissions": ["activeTab", "offscreen", "scripting", "storage"],
   "host_permissions": ["<all_urls>"],
+  "icons": {
+    "128": "icons/icon128.png"
+  },
   "action": {
-    "default_title": "Xelector",
-    "default_popup": "src/ui/management/index.html"
+    "default_icon": {
+      "128": "icons/icon128.png"
+    },
+    "default_popup": "src/ui/management/index.html",
+    "default_title": "Xelector"
   },
   "options_page": "src/ui/management/index.html",
   "background": {
