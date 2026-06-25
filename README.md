@@ -96,10 +96,10 @@ Xelector helps freelancers accelerate **client acquisition**, **proposal workflo
 > Replace the placeholders below with actual screenshots of the extension UI for the Chrome Web Store listing.
 
 ### Popup / Options Page
-![Popup / Options Page](./docs/screenshots/popup-options.png)
+![Popup / Options Page](https://github.com/Tariux/Xelector/blob/main/docs/screenshots/popup-options.PNG)
 
 ### Floating Toolbar
-![Floating Toolbar](./docs/screenshots/floating-toolbar.png)
+![Floating Toolbar](https://github.com/Tariux/Xelector/blob/main/docs/screenshots/floating-toolbar.PNG)
 
 ---
 
