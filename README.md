@@ -101,9 +101,6 @@ Xelector helps freelancers accelerate **client acquisition**, **proposal workflo
 ### Floating Toolbar
 ![Floating Toolbar](docs/screenshots/floating-toolbar.png)
 
-### Extracted Output
-![Extracted Output](docs/screenshots/extracted-output.png)
-
 ---
 
 ## Development
