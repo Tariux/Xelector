@@ -1,0 +1,10 @@
+{
+  "name": "xelector",
+  "version": "0.1.0",
+  "description": "Chrome extension for extracting configured CSS selector content and copying formatted output.",
+  "private": true,
+  "scripts": {
+    "start": "echo Load this folder as an unpacked extension in chrome://extensions",
+    "check": "node scripts/check-syntax.js"
+  }
+}

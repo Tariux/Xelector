@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Xelector</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+<header class="hero">
+       <div>
+         <p class="eyebrow">CSS Selector Clipboard</p>
+         <h1>Xelector</h1>
+         <p class="summary">Create site profiles, extract named CSS selector values on matching pages, format the output, and copy it to the clipboard.</p>
+       </div>
+     </header>
+
+    <main class="layout">
+      <section class="panel profiles-panel">
+        <div class="panel-header">
+          <h2>Profiles</h2>
+          <button id="newProfile" class="secondary">New</button>
+        </div>
+        <div id="profileList" class="profile-list"></div>
+      </section>
+
+      <section class="panel editor-panel">
+        <div class="panel-header">
+          <h2>Settings</h2>
+          <button id="deleteProfile" class="danger">Delete</button>
+        </div>
+
+        <label for="profileName">Profile name</label>
+        <input id="profileName" placeholder="Example product page">
+
+        <label for="matchPattern">URL match pattern</label>
+        <input id="matchPattern" placeholder="https://example.com/products/*">
+        <p class="hint">Use a URL substring or wildcard pattern. Examples: <code>example.com/blog</code>, <code>https://news.ycombinator.com/item*</code>.</p>
+
+        <div class="inline-fields">
+          <label class="checkbox-row">
+            <input id="autoCopy" type="checkbox" checked>
+            <span>Automatically copy on matching pages</span>
+          </label>
+
+          <label>
+            Output format
+            <select id="outputFormat">
+              <option value="text">Plain text</option>
+              <option value="markdown">Markdown</option>
+              <option value="json">JSON</option>
+            </select>
+          </label>
+        </div>
+
+        <label for="template">Output template</label>
+        <textarea id="template" rows="5" placeholder="# {{headline}}&#10;&#10;{{summary}}&#10;&#10;Source: {{url}}"></textarea>
+        <p class="hint">Optional. Use selector placeholders like <code>{{summary}}</code>, plus page fields <code>{{url}}</code> and <code>{{pageTitle}}</code>.</p>
+
+        <div class="panel-header selector-heading">
+          <h2>Selectors</h2>
+          <button id="addSelector" class="secondary">Add selector</button>
+        </div>
+        <div id="selectorList" class="selector-list"></div>
+
+        <div class="actions">
+          <button id="saveProfile" class="primary">Save profile</button>
+          <span id="statusText" role="status"></span>
+        </div>
+
+        <label for="lastOutput">Last copied output</label>
+        <textarea id="lastOutput" rows="8" readonly></textarea>
+      </section>
+    </main>
+
+    <template id="selectorTemplate">
+      <div class="selector-row">
+        <input class="selector-name" placeholder="Name, e.g. summary">
+        <input class="selector-css" placeholder="CSS selector, e.g. article p">
+        <select class="selector-attribute" title="Value type">
+          <option value="text">Text</option>
+          <option value="html">HTML</option>
+          <option value="href">href</option>
+          <option value="src">src</option>
+          <option value="content">content</option>
+        </select>
+        <label class="mini-check">
+          <input class="selector-multiple" type="checkbox">
+          <span>All</span>
+        </label>
+        <button class="remove-selector danger" type="button">Remove</button>
+      </div>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
